@@ -9,7 +9,7 @@ from rich import print as rprint
 # LangChain / LangGraph imports (LCEL style)
 from typing_extensions import TypedDict, Annotated
 import operator
-from typing import Literal
+from typing import Any
 
 from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage, AnyMessage
 from langchain_core.tools import tool
@@ -186,13 +186,18 @@ def tool_node(state: MessagesState):
 # ----------------------------
 # Conditional edge function
 # ----------------------------
-def should_continue(state: MessagesState) -> Literal["tool_node", END]:
-    """Return next node name 'tool_node' if the last LLM message contains tool_calls, else END."""
+def should_continue(state: MessagesState) -> Any:
+    """
+    Decide next step after the LLM node.
+    Returns either the string name of the next node ("tool_node") or the special END sentinel.
+    (Using `Any` avoids Pylance complaining about non-literal values in Literal[].)
+    """
     msgs = state.get("messages", [])
     last = msgs[-1] if msgs else None
     if last and getattr(last, "tool_calls", None):
         return "tool_node"
     return END
+
 
 # ----------------------------
 # Build and compile the StateGraph
