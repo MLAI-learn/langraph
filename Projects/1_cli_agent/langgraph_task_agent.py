@@ -32,7 +32,7 @@ load_dotenv()
 # ----------------------------
 # Model setup (Gemini via LangChain provider package)
 # ----------------------------
-MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-2.5-pro")  # adjust to your available model
+MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")  # adjust to your available model
 model = ChatGoogleGenerativeAI(model=MODEL_NAME, temperature=0.0, max_output_tokens=512)
 
 # ----------------------------
