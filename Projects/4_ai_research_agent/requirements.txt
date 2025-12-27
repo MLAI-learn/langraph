@@ -1,0 +1,11 @@
+langgraph
+langchain
+langchain-google-genai
+google-generativeai
+chromadb
+pydantic
+python-dotenv
+tqdm
+rich
+fastapi
+uvicorn
